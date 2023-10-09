@@ -6,6 +6,8 @@ import 'package:actual/user/view/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+// 여기서부터 앱 시작
+
 void main() {
   runApp(
     ProviderScope(
