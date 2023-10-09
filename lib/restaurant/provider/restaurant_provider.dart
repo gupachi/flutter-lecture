@@ -1,5 +1,4 @@
 import 'package:actual/common/model/cursor_pagination_model.dart';
-import 'package:actual/common/model/pagination_params.dart';
 import 'package:actual/common/provider/pagination_provider.dart';
 import 'package:actual/restaurant/model/restaurant_model.dart';
 import 'package:actual/restaurant/repository/restaurant_repository.dart';
@@ -58,14 +57,14 @@ class RestaurantStateNotifier
     // 데이터가 없을때는 그냥 캐시의 끝에다가 데이터를 추가해버린다.
     // [RestaurantModel(1), RestaurantModel(2), RestaurantModel(3),
     // RestaurantDetailModel(10)]
-    if(pState.data.where((e) => e.id == id).isEmpty){
+    if (pState.data.where((e) => e.id == id).isEmpty) {
       state = pState.copyWith(
         data: <RestaurantModel>[
           ...pState.data,
           resp,
         ],
       );
-    }else{
+    } else {
       // [RestaurantModel(1), RestaurantModel(2), RestaurantModel(3)]
       // id : 2인 친구를 Detail모델을 가져와라
       // getDetail(id: 2);
@@ -74,7 +73,7 @@ class RestaurantStateNotifier
         data: pState.data
             .map<RestaurantModel>(
               (e) => e.id == id ? resp : e,
-        )
+            )
             .toList(),
       );
     }

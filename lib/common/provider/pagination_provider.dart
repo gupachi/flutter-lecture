@@ -2,7 +2,6 @@ import 'package:actual/common/model/cursor_pagination_model.dart';
 import 'package:actual/common/model/model_with_id.dart';
 import 'package:actual/common/model/pagination_params.dart';
 import 'package:actual/common/repository/base_pagination_repository.dart';
-import 'package:actual/restaurant/repository/restaurant_rating_repository.dart';
 import 'package:debounce_throttle/debounce_throttle.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -19,7 +18,7 @@ class _PaginationInfo {
 }
 
 class PaginationProvider<T extends IModelWithId,
-U extends IBasePaginationRepository<T>>
+        U extends IBasePaginationRepository<T>>
     extends StateNotifier<CursorPaginationBase> {
   final U repository;
   final paginationThrottle = Throttle(
@@ -34,7 +33,7 @@ U extends IBasePaginationRepository<T>>
     paginate();
 
     paginationThrottle.values.listen(
-          (state) {
+      (state) {
         _throttledPagination(state);
       },
     );

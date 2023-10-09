@@ -1,6 +1,4 @@
 import 'package:actual/common/const/colors.dart';
-import 'package:actual/common/const/data.dart';
-import 'package:actual/common/dio/dio.dart';
 import 'package:actual/common/layout/default_layout.dart';
 import 'package:actual/common/model/cursor_pagination_model.dart';
 import 'package:actual/common/utils/pagination_utils.dart';
@@ -13,12 +11,9 @@ import 'package:actual/restaurant/model/restaurant_detail_model.dart';
 import 'package:actual/restaurant/model/restaurant_model.dart';
 import 'package:actual/restaurant/provider/restaurant_provider.dart';
 import 'package:actual/restaurant/provider/restaurant_rating_provider.dart';
-import 'package:actual/restaurant/repository/restaurant_rating_repository.dart';
-import 'package:actual/restaurant/repository/restaurant_repository.dart';
 import 'package:actual/restaurant/view/basket_screen.dart';
 import 'package:actual/user/provider/basket_provider.dart';
-import 'package:badges/badges.dart';
-import 'package:dio/dio.dart';
+import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -82,19 +77,20 @@ class _RestaurantDetailScreenState
           context.pushNamed(BasketScreen.routeName);
         },
         backgroundColor: PRIMARY_COLOR,
-        child: Badge(
+        child: badges.Badge(
           showBadge: basket.isNotEmpty,
           badgeContent: Text(
-            basket.fold<int>(
-              0,
-              (previous, next) => previous + next.count,
-            ).toString(),
+            basket
+                .fold<int>(
+                  0,
+                  (previous, next) => previous + next.count,
+                )
+                .toString(),
             style: TextStyle(
               color: PRIMARY_COLOR,
               fontSize: 10.0,
             ),
           ),
-          badgeColor: Colors.white,
           child: Icon(
             Icons.shopping_basket_outlined,
           ),
