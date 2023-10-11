@@ -24,10 +24,7 @@ final dioProvider = Provider<Dio>((ref) {
 class CustomInterceptor extends Interceptor {
   // onRequest가 무조건 불러진다.
   // Req : request
-  void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    print('[REQ] [${options.method}]');
-    return super.onRequest(options, handler);
-  }
+
 
   // flutter-secure-storage 사용
   final FlutterSecureStorage storage;
