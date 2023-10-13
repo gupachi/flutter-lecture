@@ -84,6 +84,7 @@ class CustomInterceptor extends Interceptor {
   }
 
   // 3) 에러가 났을때
+  // handler. resolve 를 하면 에러가 발생함
   @override
   void onError(DioError err, ErrorInterceptorHandler handler) async {
     // 401에러가 났을때 (status code)
@@ -102,6 +103,7 @@ class CustomInterceptor extends Interceptor {
 
     final isStatus401 = err.response?.statusCode == 401;
     final isPathRefresh = err.requestOptions.path == '/auth/token';
+    // 401 에러와 토큰을 새로 발급 받은 적 없음
 
     if (isStatus401 && !isPathRefresh) {
       final dio = Dio();
@@ -127,7 +129,7 @@ class CustomInterceptor extends Interceptor {
 
         await storage.write(key: ACCESS_TOKEN_KEY, value: accessToken);
 
-        // 요청 재전송
+        // 요청 재전송 : 화면 밖에서는 이 코드만 작동되는 것
         final response = await dio.fetch(options);
 
         return handler.resolve(response);

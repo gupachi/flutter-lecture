@@ -31,13 +31,19 @@ abstract class RestaurantRepository
 
   // http://$ip/restaurant/
   @GET('/')
+  // onRequest 요청의 header부분
+  // header 아에 매번 토큰을 집어넣을 수 없기에
+  // token을 true라고 만 명시하면 dio 에서 알아서 REQ 가 동작한다.
+
   @Headers({
     'accessToken': 'true',
   })
-  Future<CursorPagination<RestaurantModel>> paginate({
-    @Queries() PaginationParams? paginationParams = const PaginationParams(),
-  });
-
+  @override
+  // pagination(meta, data)
+  Future<CursorPagination<RestaurantModel>> paginate({PaginationParams? paginationParams = const PaginationParams()}) {
+    // TODO: implement paginate
+    throw UnimplementedError();
+  }
   // http://$ip/restaurant/:id
   @GET('/{id}')
   @Headers({

@@ -1,7 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
 part 'cursor_pagination_model.g.dart';
-
+//json 파일을 그대로 mapping한 형태를 만들 수 있다.
 abstract class CursorPaginationBase {}
 
 class CursorPaginationError extends CursorPaginationBase {
@@ -19,6 +19,7 @@ class CursorPaginationLoading extends CursorPaginationBase {}
 )
 class CursorPagination<T> extends CursorPaginationBase {
   final CursorPaginationMeta meta;
+  //타입이 지정되어 있지 않음
   final List<T> data;
 
   CursorPagination({
@@ -37,6 +38,7 @@ class CursorPagination<T> extends CursorPaginationBase {
   }
 
   factory CursorPagination.fromJson(
+      // 외부에서 정의 T타입이 어떻게 json에서 활용될지
           Map<String, dynamic> json, T Function(Object? json) fromJsonT) =>
       _$CursorPaginationFromJson(json, fromJsonT);
 }
@@ -60,7 +62,7 @@ class CursorPaginationMeta {
       hasMore: hasMore ?? this.hasMore,
     );
   }
-
+// 이름대로 생성해서 값을 넣어줄 수 있음
   factory CursorPaginationMeta.fromJson(Map<String, dynamic> json) =>
       _$CursorPaginationMetaFromJson(json);
 }
